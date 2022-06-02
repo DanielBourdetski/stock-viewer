@@ -12,6 +12,7 @@
 # production
 /build
 /src/services
+README.md
 
 # misc
 .DS_Store
