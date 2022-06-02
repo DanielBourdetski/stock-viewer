@@ -1,20 +1,23 @@
 import React from 'react'
+import Graph from './Graph';
 import './Stock.css'
 
 export default function Stock(props) {
-    const {name, code, value, change} = props.data;
+
+    // stock = name, marketdata, open, close
+    // marketData = open,
+    const {stock, clean, marketData} = props;
 
     return (
-        <div className={'m-auto border rounded-3 mt-3 custom p-3 ' + props.className}>
+        <div className={'border rounded-3 d-flex flex-column ' + props.className}>
+            <button className='btn btn-none m-0 ms-auto'>*</button>
             <div>
-                <h1 className='display-4'>{name}</h1>
-                <p className='fs-4'>{code}</p>
+                <h1 className='display-4'>{stock.name}</h1>
+                <p className='fs-4'>{stock.ticker}</p>
             </div>
-            <p>{value} <span>({change})</span></p>
-            <div>
-                <button className='btn btn-success me-3'>Buy</button>
-                <button className='btn btn-danger'>Sell</button>
-            </div>
+            {!clean && <p>open: {stock.open}</p>}
+            {!clean && <p>close: {stock.close}</p>}
+            {marketData && Graph}
             
         </div>
     )
