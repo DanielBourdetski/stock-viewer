@@ -1,72 +1,49 @@
-import React, {useEffect, useState} from 'react'
+import React, { useState } from 'react'
 
 import Stock from './Stock'
 import SearchInputs from './SearchInputs'
-
-
-import { getStocks, actions, getMonthsWorthStockMatketData, getStockCurrentData } from '../services/getSymbols'
-
-// const DUMMY = [
-//   {
-//       name: 'Apple',
-//       code: 'AAPL',
-//       value: 150,
-//       change: 10
-//   },
-//   {
-//       name: 'Microsoft',
-//       code: 'MSFT',
-//       value: 350,
-//       change: -3
-//   },
-//   {
-//       name: 'Apple',
-//       code: 'AAPL',
-//       value: 150,
-//       change: 10
-//   },
-// ]
+import { fetchStocks } from '../services/api'
 
 export default function Stocks() {
+	// stocks = data: [{ticker, name},...]
   const [stocks, setStocks] = useState(null);
-	const [stock, setStock] = useState(null);
+	// stockMarketData = data: {ticker, results} --> results: [{c,t,...},...]
+	const [stockMarketData, setStockMarketData] = useState(null);
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
 
 	const renderMainContent = () => {
-		if (error) return <p>{error}</p>;
+		if (error) {
+			return <p>{error}</p>;
+		}
 
-		if (stock) return <Stock className='col-3' stock={stock} />;
+		if (stockMarketData) {
+			return <Stock data={stockMarketData} />;
+		}
 
-		if (stocks) return stocks.map(stock => <Stock key={stock.ticker} clean className='col-md-4 col-lg=3' stock={stock} />);
+		console.log('stocks: ', stocks);
+
+		if (stocks) return <Stock data={stocks} list/>;
 
 		if (loading) return <p>Loading...</p>
 
 		return <p>Search for stocks! ^</p>
 	}
 
-  const onSearchHandler = search => {
-		setStock(null);
+  const onSearchHandler = async search => {
+		setStockMarketData(null);
 		setStocks(null);
 		setError(null);
 		setLoading(true);
 
-		const fetchStocks = async () => {
-			try {
-				const fetchedStocks = await getStocks(search.searchBy, search.term);
-				if (fetchedStocks.length === 0) return setError('No Matching Stocks Found');
-	
-				if (fetchedStocks.length === 1) return setStock(fetchedStocks[0])
-	
-				setStocks(fetchedStocks);
-	
-			} catch (err) {
-				console.log(err);
-			}
-			setLoading(false);
-		}
+		const fetchedStocks = await fetchStocks(search.searchBy, search.term);
+		console.log(fetchedStocks);
 
-		fetchStocks();
+		if (!fetchedStocks.type) {} // handle no stocks found
+
+		if (fetchedStocks.type === 'marketData') setStockMarketData(fetchedStocks.data);
+
+		if (fetchedStocks.type === 'stock list') setStocks(fetchedStocks.data);
   }
 
   return (

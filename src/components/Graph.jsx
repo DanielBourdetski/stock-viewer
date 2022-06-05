@@ -41,7 +41,7 @@ const Graph = (props) => {
     options: {}
   };
 
-  return <canvas ref={canvasRef}></canvas>
+  return <canvas className={props.className} ref={canvasRef}></canvas>
 }
 
 export default Graph;

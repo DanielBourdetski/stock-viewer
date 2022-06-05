@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import { actions } from '../services/getSymbols';
+import { actions } from '../services/api';
 
 const SearchInputs = props => {
   const [selectedSearchBy, setSelectedSearchBy] = useState(actions.byName);
