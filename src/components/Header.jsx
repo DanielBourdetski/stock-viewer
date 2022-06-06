@@ -21,6 +21,12 @@ export default function Header() {
                     <li className='list-group-item border rounded-3 px-4'>
                         <NavLink to='my-stocks' style={({isActive}) => isActive ? undefined : notActiveStyle}>Saved Stocks</NavLink>
                     </li>
+                    <li className='list-group-item border rounded-3 px-4'>
+                        <NavLink to='my-stocks' style={({isActive}) => isActive ? undefined : notActiveStyle}>Sign Up</NavLink>
+                    </li>
+                    <li className='list-group-item border rounded-3 px-4'>
+                        <NavLink to='my-stocks' style={({isActive}) => isActive ? undefined : notActiveStyle}>Sign In</NavLink>
+                    </li>
                 </ul>
             </nav>
         </div>

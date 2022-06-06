@@ -1,0 +1,17 @@
+.card {
+  transition-duration: 200ms;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 1px 10px 10px rgba(0, 0, 0, 0.14);
+}
+
+.negative-change {
+  color: red;
+}
+
+.positive-change {
+  color: rgb(0, 159, 0);
+}
