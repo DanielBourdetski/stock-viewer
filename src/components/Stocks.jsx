@@ -22,6 +22,8 @@ export default function Stocks() {
 
     const fetchedStocks = await fetchStocks(search.searchBy, search.term);
 
+    if (fetchedStocks.error) return setError(fetchedStocks.errorMessage);
+
     if (!fetchedStocks.type) {
       // handle no stocks found
     }
@@ -46,8 +48,6 @@ export default function Stocks() {
       return <Stock data={stockMarketData} />;
     }
 
-    console.log('stocks: ', stocks);
-
     if (stocks) return <Stock data={stocks} onStockSelect={onStockSelectHandler} list />;
 
     if (loading) return <p>Loading...</p>;
@@ -56,9 +56,9 @@ export default function Stocks() {
   };
 
   return (
-    <>
-      <SearchInputs className="w-50 mx-auto my-3" onSearchHandler={onSearchHandler} />
-      <div className="container row gap-5 w-75 justify-content-center mx-auto mt-3">{renderMainContent()}</div>
-    </>
+    <div className="container mx-auto row mt-4">
+      <SearchInputs className="col-10" onSearchHandler={onSearchHandler} />
+      <div className="col-10 row gap-5 justify-content-center mx-auto mt-3">{renderMainContent()}</div>
+    </div>
   );
 }

@@ -3,14 +3,14 @@ import { Routes, Route } from 'react-router-dom';
 import './App.css';
 
 import About from './components/About';
-import Header from './components/Header';
+import Navbar from './components/Navbar';
 import SavedStocks from './components/SavedStocks';
 import Stocks from './components/Stocks';
 
 function App() {
   return (
-    <div className="App">
-      <Header />
+    <div className="App w-75 mx-auto">
+      <Navbar />
       <Routes>
         <Route path="/" element={<Stocks />} />
         <Route path="/stocks" element={<Stocks />} />
