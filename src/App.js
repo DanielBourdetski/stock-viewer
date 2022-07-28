@@ -14,7 +14,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Stocks />} />
         <Route path="/stocks" element={<Stocks />} />
-        <Route path="/my-stocks" element={<SavedStocks />} />
         <Route path="/about" element={<About />} />
       </Routes>
     </div>
